@@ -1,0 +1,234 @@
+> db.createCollection("Book")
+{ "ok" : 1 }
+
+A.create a collection name Book add 5 documents in collection Book with keys(book_isbn,title,publisher_name, author_name,author_address,author_phoneno,publisher_city,price ,copy).
+
+> db.Book.insert({"Book_ISBN":"1","Title":"JAVA","Publisher_name":"Pearson","Author_name":"Mr.Bagal","Author_address":"Pune","Author_phone":"9922778844","Publisher_city":"Pune","Price":"250","Copy":"100"})
+> db.Book.insert({"Book_ISBN":"2","Title":"PPL","Publisher_name":"Techmax","Author_name":"Mr.Patil","Author_address":"Solapur","Author_phone":"9855679400","Publisher_city":"Baramati","Price":"350","Copy":"30"})
+> db.Book.insert({"Book_ISBN":"2","Title":"PPL","Publisher_name":"Techmax","Author_name":"Mr.Patil","Author_address":"Solapur","Author_phone":"9855679400","Publisher_city":"Baramati","Price":"350","Copy":"30"})
+> db.Book.insert({"Book_ISBN":"4","Title":"TOC","Publisher_name":"Mr.Shaha","Author_name":"Dr.Jadhav","Author_address":"Satara","Author_phone":"9877345290","Publisher_city":"Satara","Price":"440","Copy":"200"})
+> db.Book.insert({"Book_ISBN":"5","Title":"c language","Publisher_name":"TATA Magrewhill","Author_name":"Dr.Yadav","Author_address":"Pune","Author_phone":"7073422290","Publisher_city":"Braramati","Price":"520","Copy":"180"})   
+> db.Book.find().pretty()
+{
+	"_id" : ObjectId("4cfbdfce5cd6e1dc92adfaa3"),
+	"Book_ISBN" : "1",
+	"Title" : "JAVA",
+	"Publisher_name" : "Pearson",
+	"Author_name" : "Mr.Bagal",
+	"Author_address" : "Pune",
+	"Author_phone" : "9922778844",
+	"Publisher_city" : "Pune",
+	"Price" : "250",
+	"Copy" : "100"
+}
+{
+	"_id" : ObjectId("4cfbe1625cd6e1dc92adfaa4"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe1925cd6e1dc92adfaa5"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe1925cd6e1dc92adfaa5"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe31b5cd6e1dc92adfaa6"),
+	"Book_ISBN" : "4",
+	"Title" : "TOC",
+	"Publisher_name" : "Mr.Shaha",
+	"Author_name" : "Dr.Jadhav",
+	"Author_address" : "Satara",
+	"Author_phone" : "9877345290",
+	"Publisher_city" : "Satara",
+	"Price" : "440",
+	"Copy" : "200"
+}
+{
+	"_id" : ObjectId("4cfbe47f5cd6e1dc92adfaa7"),
+	"Book_ISBN" : "5",
+	"Title" : "c language",
+	"Publisher_name" : "TATA Magrewhill",
+	"Author_name" : "Dr.Yadav",
+	"Author_address" : "Pune",
+	"Author_phone" : "7073422290",
+	"Publisher_city" : "Braramati",
+	"Price" : "520",
+	"Copy" : "180"
+}
+
+B.give details of book whose publisher lives in "pune".
+> db.Book.find({"Publisher_city":"Pune"}).pretty()
+{
+	"_id" : ObjectId("4cfbdfce5cd6e1dc92adfaa3"),
+	"Book_ISBN" : "1",
+	"Title" : "JAVA",
+	"Publisher_name" : "Pearson",
+	"Author_name" : "Mr.Bagal",
+	"Author_address" : "Pune",
+	"Author_phone" : "9922778844",
+	"Publisher_city" : "Pune",
+	"Price" : "250",
+	"Copy" : "100"
+}
+
+D.change the city of publisher "pearson" to "Mumbai".
+> db.Book.update({"Publisher_name":"Pearson"},{$set:{"Publisher_city":"Mumbai"}})
+> db.Book.find().pretty()
+{
+	"Author_address" : "Pune",
+	"Author_name" : "Mr.Bagal",
+	"Author_phone" : "9922778844",
+	"Book_ISBN" : "1",
+	"Copy" : "100",
+	"Price" : "250",
+	"Publisher_city" : "Mumbai",
+	"Publisher_name" : "Pearson",
+	"Title" : "JAVA",
+	"_id" : ObjectId("4cfbdfce5cd6e1dc92adfaa3")
+}
+{
+	"_id" : ObjectId("4cfbe1625cd6e1dc92adfaa4"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe1925cd6e1dc92adfaa5"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe31b5cd6e1dc92adfaa6"),
+	"Book_ISBN" : "4",
+	"Title" : "TOC",
+	"Publisher_name" : "Mr.Shaha",
+	"Author_name" : "Dr.Jadhav",
+	"Author_address" : "Satara",
+	"Author_phone" : "9877345290",
+	"Publisher_city" : "Satara",
+	"Price" : "440",
+	"Copy" : "200"
+}
+{
+	"_id" : ObjectId("4cfbe47f5cd6e1dc92adfaa7"),
+	"Book_ISBN" : "5",
+	"Title" : "c language",
+	"Publisher_name" : "TATA Magrewhill",
+	"Author_name" : "Dr.Yadav",
+	"Author_address" : "Pune",
+	"Author_phone" : "7073422290",
+	"Publisher_city" : "Braramati",
+	"Price" : "520",
+	"Copy" : "180"
+}
+
+E.find the details of publisher name."Pearson".
+> db.Book.find({"Publisher_name":"Pearson"}).pretty()
+{
+	"Author_address" : "Pune",
+	"Author_name" : "Mr.Bagal",
+	"Author_phone" : "9922778844",
+	"Book_ISBN" : "1",
+	"Copy" : "100",
+	"Price" : "250",
+	"Publisher_city" : "Mumbai",
+	"Publisher_name" : "Pearson",
+	"Title" : "JAVA",
+	"_id" : ObjectId("4cfbdfce5cd6e1dc92adfaa3")
+}
+
+ C.Delete name of book from book whose name start with "J".
+>  db.Book.remove({$and:[{"Title":{$gte:"J"}},{"Title":{$lt:"K"}}]})
+> db.Book.find().pretty()
+{
+	"_id" : ObjectId("4cfbe1625cd6e1dc92adfaa4"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe1925cd6e1dc92adfaa5"),
+	"Book_ISBN" : "2",
+	"Title" : "PPL",
+	"Publisher_name" : "Techmax",
+	"Author_name" : "Mr.Patil",
+	"Author_address" : "Solapur",
+	"Author_phone" : "9855679400",
+	"Publisher_city" : "Baramati",
+	"Price" : "350",
+	"Copy" : "30"
+}
+{
+	"_id" : ObjectId("4cfbe31b5cd6e1dc92adfaa6"),
+	"Book_ISBN" : "4",
+	"Title" : "TOC",
+	"Publisher_name" : "Mr.Shaha",
+	"Author_name" : "Dr.Jadhav",
+	"Author_address" : "Satara",
+	"Author_phone" : "9877345290",
+	"Publisher_city" : "Satara",
+	"Price" : "440",
+	"Copy" : "200"
+}
+{
+	"_id" : ObjectId("4cfbe47f5cd6e1dc92adfaa7"),
+	"Book_ISBN" : "5",
+	"Title" : "c language",
+	"Publisher_name" : "TATA Magrewhill",
+	"Author_name" : "Dr.Yadav",
+	"Author_address" : "Pune",
+	"Author_phone" : "7073422290",
+	"Publisher_city" : "Braramati",
+	"Price" : "520",
+	"Copy" : "180"
+}
+
+
+
+ 
+

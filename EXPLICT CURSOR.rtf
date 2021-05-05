@@ -1,0 +1,306 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fprq8\fcharset0 Liberation Serif;}{\f1\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\f0\fs24\lang9\tab\tab\tab EXPLICT CURSOR\par
+\par
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Oct 1 09:44:42 2018 \par
+\f1\fs22\par
+\f0\fs24 Copyright (c) 1982, 2011, Oracle.  All rights reserved. \par
+\f1\fs22\par
+\f0\fs24 Use "connect username/password@XE" to connect to the database. \par
+SQL> connect system \par
+Enter password: \par
+Connected. \par
+SQL> set serveroutput on \par
+SQL> desc book; \par
+ Name\tab\tab\tab\tab\tab    Null?    Type \par
+ ----------------------------------------- -------- ---------------------------- \par
+ BOOK_ISBN\tab\tab\tab\tab    NOT NULL NUMBER(38) \par
+ TITLE\tab\tab\tab\tab\tab    NOT NULL VARCHAR2(30) \par
+ PUBLISHER_NAME \tab\tab\tab\tab     VARCHAR2(30) \par
+ PRICE\tab\tab\tab\tab\tab\tab     NUMBER(38) \par
+ DATE_OF_PUBLICATION\tab\tab\tab\tab     DATE \par
+ BOOK_COPY\tab\tab\tab\tab\tab     NUMBER(38) \par
+\f1\fs22\par
+\f0\fs24 SQL> desc book_authors; \par
+ Name\tab\tab\tab\tab\tab    Null?    Type \par
+ ----------------------------------------- -------- ---------------------------- \par
+ BOOK_ISBN\tab\tab\tab\tab    NOT NULL NUMBER(38) \par
+ AUTHOR_NAME\tab\tab\tab\tab    NOT NULL VARCHAR2(30) \par
+ AUTHOR_CITY\tab\tab\tab\tab\tab     VARCHAR2(30) \par
+\f1\fs22\par
+\f0\fs24 SQL> select * from book; \par
+\f1\fs22\par
+\f0\fs24 no rows selected \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book values(1,'c++','shivam',500,'12-may-2000',50); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book values(3,'dsa','rajiv',420,'14-mar-2004',40); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book values(7,'web tech','raghav',300,'1-feb-2004',30); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>   insert into book values(8,'java','ayush',520,'4-dec-2002',240); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book values(5,'c#','gaurav',350,'10-jul-2001',25); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> select * from book; \par
+\f1\fs22\par
+\f0\fs24  BOOK_ISBN TITLE\tab\tab\tab   PUBLISHER_NAME \par
+---------- ------------------------------ ------------------------------ \par
+     PRICE DATE_OF_PUBLICATIO  BOOK_COPY \par
+---------- ------------------ ---------- \par
+\tab  1 c++\tab\tab\tab\tab   shivam \par
+       500 12-MAY-00\tab\tab       50 \par
+\f1\fs22\par
+\f0\fs24\tab  3 dsa\tab\tab\tab\tab   rajiv \par
+       420 14-MAR-04\tab\tab       40 \par
+\f1\fs22\par
+\f0\fs24\tab  7 web tech\tab\tab\tab   raghav \par
+       300 01-FEB-04\tab\tab       30 \par
+\f1\fs22\par
+\par
+\f0\fs24  BOOK_ISBN TITLE\tab\tab\tab   PUBLISHER_NAME \par
+---------- ------------------------------ ------------------------------ \par
+     PRICE DATE_OF_PUBLICATIO  BOOK_COPY \par
+---------- ------------------ ---------- \par
+\tab  8 java \tab\tab\tab   ayush \par
+       520 04-DEC-02\tab\tab      240 \par
+\f1\fs22\par
+\f0\fs24\tab  5 c#\tab\tab\tab\tab   gaurav \par
+       350 10-JUL-01\tab\tab       25 \par
+\f1\fs22\par
+\par
+\f0\fs24 SQL> select * from book_authors; \par
+\f1\fs22\par
+\f0\fs24 no rows selected \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(1,'sheetal','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book_authors values(8,'amit','mumbai'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(7,'rahul','rajasthan'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book_authors values(5,'saurabh','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book_authors values(3,'ajay','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> select * from book_authors; \par
+\f1\fs22\par
+\f0\fs24  BOOK_ISBN AUTHOR_NAME\tab\tab\tab   AUTHOR_CITY \par
+---------- ------------------------------ ------------------------------ \par
+\tab  1 sheetal\tab\tab\tab   pune \par
+\tab  8 amit \tab\tab\tab   mumbai \par
+\tab  7 rahul\tab\tab\tab   rajasthan \par
+\tab  5 saurabh\tab\tab\tab   pune \par
+\tab  3 ajay \tab\tab\tab   pune \par
+\f1\fs22\par
+\par
+\f0\fs24 SQL> select * from book authors; \par
+\f1\fs22\par
+\f0\fs24 no rows selected \par
+\f1\fs22\par
+\f0\fs24 SQL> ed \par
+Wrote file afiedt.buf \par
+29 \par
+\par
+declare \par
+cursor c is select * from book_authors; \par
+total_row numeric; \par
+book_isbn numeric; \par
+author_name varchar(20); \par
+author_city varchar(20); \par
+\f1\fs22\par
+\f0\fs24 begin \par
+open c; \par
+loop \par
+fetch c into book_isbn,author_name,author_city; \par
+\f1\fs22\par
+\f0\fs24 if c%notfound then \par
+dbms_output.put_line('nothing  selected'); \par
+exit; \par
+\f1\fs22\par
+\f0\fs24 else \par
+\f1\fs22\par
+\f0\fs24 dbms_output.put_line('book_isbn=' ||book_isbn|| 'author_name=' ||author_name|| 'author_city=' ||author_city); \par
+  \par
+end if; \par
+end loop; \par
+\f1\fs22\par
+\f0\fs24 close c; \par
+  \par
+end; \par
+\par
+\par
+q \par
+\f1\fs22\par
+\f0\fs24   1  declare \par
+  2  cursor c is select * from book_authors; \par
+  3  total_row numeric; \par
+  4  book_isbn numeric; \par
+  5  author_name varchar(20); \par
+  6  author_city varchar(20); \par
+  7  begin \par
+  8  open c; \par
+  9  loop \par
+ 10  fetch c into book_isbn,author_name,author_city; \par
+ 11  if c%notfound then \par
+ 12  dbms_output.put_line('nothing  selected'); \par
+ 13  exit; \par
+ 14  else \par
+ 15  dbms_output.put_line('book_isbn=' ||book_isbn|| 'author_name=' ||author_name|| 'author_city=' ||author_city); \par
+ 16  end if; \par
+ 17  end loop; \par
+ 18  close c; \par
+ 19* end; \par
+ 20  / \par
+nothing  selected \par
+\f1\fs22\par
+\f0\fs24 PL/SQL procedure successfully completed. \par
+\f1\fs22\par
+\f0\fs24\par
+SQL> insert into book values(1,'c++','shivam',500,'12-may-2000',50); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\par
+\f0\fs24 SQL> insert into book values(3,'dsa','rajiv',420,'14-mar-2004',40); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book values(7,'web tech','raghav',300,'1-feb-2004',30); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book values(8,'java','ayush',520,'4-dec-2002',240); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book values(5,'c#','gaurav',350,'10-jul-2001',25); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> select * from book; \par
+\f1\fs22\par
+\f0\fs24  BOOK_ISBN TITLE\tab\tab\tab   PUBLISHER_NAME \par
+---------- ------------------------------ ------------------------------ \par
+     PRICE DATE_OF_PUBLICATIO  BOOK_COPY \par
+---------- ------------------ ---------- \par
+\tab  1 c++\tab\tab\tab\tab   shivam \par
+       500 12-MAY-00\tab\tab       50 \par
+\f1\fs22\par
+\f0\fs24\tab  3 dsa\tab\tab\tab\tab   rajiv \par
+       420 14-MAR-04\tab\tab       40 \par
+\f1\fs22\par
+\f0\fs24\tab  7 web tech\tab\tab\tab   raghav \par
+       300 01-FEB-04\tab\tab       30 \par
+\f1\fs22\par
+\par
+\f0\fs24  BOOK_ISBN TITLE\tab\tab\tab   PUBLISHER_NAME \par
+---------- ------------------------------ ------------------------------ \par
+     PRICE DATE_OF_PUBLICATIO  BOOK_COPY \par
+---------- ------------------ ---------- \par
+\tab  8 java \tab\tab\tab   ayush \par
+       520 04-DEC-02\tab\tab      240 \par
+\f1\fs22\par
+\f0\fs24\tab  5 c#\tab\tab\tab\tab   gaurav \par
+       350 10-JUL-01\tab\tab       25 \par
+\f1\fs22\par
+\par
+\f0\fs24 SQL> select * from book_authors; \par
+\f1\fs22\par
+\f0\fs24 no rows selected \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(1,'sheetal','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(8,'amit','mumbai'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(7,'rahul','rajasthan'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL>  insert into book_authors values(5,'saurabh','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> insert into book_authors values(3,'ajay','pune'); \par
+\f1\fs22\par
+\f0\fs24 1 row created. \par
+\f1\fs22\par
+\f0\fs24 SQL> select * from book_authors; \par
+\f1\fs22\par
+\f0\fs24  BOOK_ISBN AUTHOR_NAME\tab\tab\tab   AUTHOR_CITY \par
+---------- ------------------------------ ------------------------------ \par
+\tab  1 sheetal\tab\tab\tab   pune \par
+\tab  8 amit \tab\tab\tab   mumbai \par
+\tab  7 rahul\tab\tab\tab   rajasthan \par
+\tab  5 saurabh\tab\tab\tab   pune \par
+\tab  3 ajay \tab\tab\tab   pune \par
+\f1\fs22\par
+\f0\fs24 SQL> ed \par
+Wrote file afiedt.buf \par
+29 \par
+q \par
+\f1\fs22\par
+\f0\fs24   1  declare \par
+  2  cursor c is select * from book_authors; \par
+  3  total_row numeric; \par
+  4  book_isbn numeric; \par
+  5  author_name varchar(20); \par
+  6  author_city varchar(20); \par
+  7  begin \par
+  8  open c; \par
+  9  loop \par
+ 10  fetch c into book_isbn,author_name,author_city; \par
+ 11  if c%notfound then \par
+ 12  dbms_output.put_line('nothing  selected'); \par
+ 13  exit; \par
+ 14  else \par
+ 15  dbms_output.put_line('book_isbn=' ||book_isbn|| 'author_name=' ||author_name|| 'author_city=' ||author_city); \par
+ 16  end if; \par
+ 17  end loop; \par
+ 18  close c; \par
+ 19* end; \par
+ 20  / \par
+book_isbn=1author_name=sheetalauthor_city=pune \par
+book_isbn=8author_name=amitauthor_city=mumbai \par
+book_isbn=7author_name=rahulauthor_city=rajasthan \par
+book_isbn=5author_name=saurabhauthor_city=pune \par
+book_isbn=3author_name=ajayauthor_city=pune \par
+nothing  selected \par
+\f1\fs22\par
+\f0\fs24 PL/SQL procedure successfully completed. \par
+\f1\fs22\par
+\f0\fs24 SQL> \par
+\f1\fs22\par
+\par
+\par
+\par
+\par
+\par
+
+\pard\sa200\sl276\slmult1\par
+}
+ 

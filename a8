@@ -1,0 +1,101 @@
+Assignment NO=: 08
+---------------------------------------------------------------------------------------------------
+SQL> set serveroutput on;
+SQL> create table libraryinfo(bno numeric,bname varchar(20),Author varchar(20),allowed_days numeric)
+Table created.
+
+SQL> describe libraryinfo;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNO						    NUMBER(38)
+ BNAME						    VARCHAR2(20)
+ AUTHOR 					    VARCHAR2(20)
+ ALLOWED_DAYS					    NUMBER(38)
+
+SQL> create table library_Audit1(bno numeric,old_all_days number(5),new_all_days number(5));
+
+Table created.
+
+SQL> describe library_Audit1;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNO						    NUMBER(38)
+ OLD_ALL_DAYS					    NUMBER(5)
+ NEW_ALL_DAYS					    NUMBER(5)
+
+SQL> insert into libraryinfo values(1,'JAVA','MR.Bagal',10);
+
+1 row created.
+
+SQL> insert into libraryinfo values(2,'C++','MR.Deokar',10);
+
+1 row created.
+
+SQL> insert into libraryinfo values(2,'PPL','MR.Jadhav',10);
+
+1 row created.
+
+SQL> select * from libraryinfo;
+
+       BNO BNAME		AUTHOR		     ALLOWED_DAYS
+---------- -------------------- -------------------- ------------
+	 1 JAVA 		MR.Bagal		       10
+	 2 C++			MR.Deokar		       10
+	 2 PPL			MR.Jadhav		       10
+
+SQL> create or replace trigger tr1
+  2  before update or delete on libraryinfo
+  3  for each row
+  4  begin
+  5  insert into library_Audit1 values(:new.bno,:old.allowed_days,:new.allowed_days);
+  6  end;
+  7  /
+
+Trigger created.
+
+SQL> select * from libraryinfo;
+
+       BNO BNAME		AUTHOR		     ALLOWED_DAYS
+---------- -------------------- -------------------- ------------
+	 1 JAVA 		MR.Bagal		       10
+	 2 C++			MR.Deokar		       10
+	 2 PPL			MR.Jadhav		       10
+SQL> update libraryinfo set allowed_days=20 where bno=1;
+
+1 row updated.
+
+SQL> select * from libraryinfo;
+
+       BNO BNAME		AUTHOR		     ALLOWED_DAYS
+---------- -------------------- -------------------- ------------
+	 1 JAVA 		MR.Bagal		       20
+	 2 C++			MR.Deokar		       10
+	 2 PPL			MR.Jadhav		       10
+
+SQL> select * from library_Audit1;
+
+       BNO OLD_ALL_DAYS NEW_ALL_DAYS
+---------- ------------ ------------
+	 1	     10 	  20
+
+SQL> delete from libraryinfo where bno=1;
+
+1 row deleted.
+
+SQL> select * from libraryinfo;
+
+       BNO BNAME		AUTHOR		     ALLOWED_DAYS
+---------- -------------------- -------------------- ------------
+	 2 C++			MR.Deokar		       10
+	 2 PPL			MR.Jadhav		       10
+
+SQL> select * from library_Audit1
+  2  ;
+
+       BNO OLD_ALL_DAYS NEW_ALL_DAYS
+---------- ------------ ------------
+	 1	     10 	  20
+		     20
+
+
+

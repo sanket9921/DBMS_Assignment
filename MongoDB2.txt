@@ -1,0 +1,233 @@
+[student@localhost ~]$ su
+Password: 
+[root@localhost student]# mongo
+MongoDB shell version: 2.4.6
+connecting to: test
+> use Library
+switched to db Library
+> show collections
+Book
+system.indexes
+> db.Book.find().pretty()
+{
+	"_id" : ObjectId("5bc016e8c3480fd761b13a48"),
+	"Book_ISBN" : "2",
+	"Title" : "TOC",
+	"Publisher_name" : "Tata Magrohill",
+	"Author_name" : "Karan",
+	"Address" : "Pune",
+	"Author_Phone" : "9746747492",
+	"Publisher_city" : "Mumbai",
+	"Price" : "400",
+	"Copies" : "50"
+}
+{
+	"_id" : ObjectId("5bc01856c3480fd761b13a49"),
+	"Book_ISBN" : "3",
+	"Title" : "CN",
+	"Publisher_name" : "Vikas",
+	"Author_name" : "Vivek Kulkarni",
+	"Address" : "Delhi",
+	"Author_Phone" : "9647836465",
+	"Publisher_city" : "Nashik",
+	"Price" : "600",
+	"Copies" : "60"
+}
+{
+	"_id" : ObjectId("5bc018eac3480fd761b13a4a"),
+	"Book_ISBN" : "4",
+	"Title" : "ISEE",
+	"Publisher_name" : "Nilesh",
+	"Author_name" : "Amruta",
+	"Address" : "Bombay",
+	"Author_Phone" : "9647836875",
+	"Publisher_city" : "Nagpur",
+	"Price" : "550",
+	"Copies" : "50"
+}
+{
+	"Address" : "Pune",
+	"Author_Phone" : "9897836875",
+	"Author_name" : "Aayansh",
+	"Book_ISBN" : "5",
+	"Copies" : "100",
+	"Price" : "450",
+	"Publisher_city" : "Delhi",
+	"Publisher_name" : "Vishakha",
+	"Title" : "SEPM",
+	"_id" : ObjectId("5bc0196dc3480fd761b13a4b"),
+	"publisher_city" : "Pune"
+}
+1.Count the number of documents in the collection.
+> db.Book.find().count()
+4
+2.Arrange the documents in ascending order of Book_ISBN.
+> db.Book.find().pretty().sort({"Book_ISBN":-1})
+{
+	"Address" : "Pune",
+	"Author_Phone" : "9897836875",
+	"Author_name" : "Aayansh",
+	"Book_ISBN" : "5",
+	"Copies" : "100",
+	"Price" : "450",
+	"Publisher_city" : "Delhi",
+	"Publisher_name" : "Vishakha",
+	"Title" : "SEPM",
+	"_id" : ObjectId("5bc0196dc3480fd761b13a4b"),
+	"publisher_city" : "Pune"
+}
+{
+	"_id" : ObjectId("5bc018eac3480fd761b13a4a"),
+	"Book_ISBN" : "4",
+	"Title" : "ISEE",
+	"Publisher_name" : "Nilesh",
+	"Author_name" : "Amruta",
+	"Address" : "Bombay",
+	"Author_Phone" : "9647836875",
+	"Publisher_city" : "Nagpur",
+	"Price" : "550",
+	"Copies" : "50"
+}
+{
+	"_id" : ObjectId("5bc01856c3480fd761b13a49"),
+	"Book_ISBN" : "3",
+	"Title" : "CN",
+	"Publisher_name" : "Vikas",
+	"Author_name" : "Vivek Kulkarni",
+	"Address" : "Delhi",
+	"Author_Phone" : "9647836465",
+	"Publisher_city" : "Nashik",
+	"Price" : "600",
+	"Copies" : "60"
+}
+{
+	"_id" : ObjectId("5bc016e8c3480fd761b13a48"),
+	"Book_ISBN" : "2",
+	"Title" : "TOC",
+	"Publisher_name" : "Tata Magrohill",
+	"Author_name" : "Karan",
+	"Address" : "Pune",
+	"Author_Phone" : "9746747492",
+	"Publisher_city" : "Mumbai",
+	"Price" : "400",
+	"Copies" : "50"
+}
+3.Select Book name whose title is TOC.
+> db.Book.find({"Title":"TOC"}).pretty()
+{
+	"_id" : ObjectId("5bc016e8c3480fd761b13a48"),
+	"Book_ISBN" : "2",
+	"Title" : "TOC",
+	"Publisher_name" : "Tata Magrohill",
+	"Author_name" : "Karan",
+	"Address" : "Pune",
+	"Author_Phone" : "9746747492",
+	"Publisher_city" : "Mumbai",
+	"Price" : "400",
+	"Copies" : "50"
+}
+4.Update Book copies as 10 whose Book publisher is "Tata Magrohill".
+> db.Book.update({"Publisher_name":"Tata Magrohill"},{$set:{"Copies":"10"}})
+> db.Book.find().pretty()
+{
+	"_id" : ObjectId("5bc016e8c3480fd761b13a48"),
+	"Book_ISBN" : "2",
+	"Title" : "TOC",
+	"Publisher_name" : "Tata Magrohill",
+	"Author_name" : "Karan",
+	"Address" : "Pune",
+	"Author_Phone" : "9746747492",
+	"Publisher_city" : "Mumbai",
+	"Price" : "400",
+	"Copies" : "10"
+}
+{
+	"_id" : ObjectId("5bc01856c3480fd761b13a49"),
+	"Book_ISBN" : "3",
+	"Title" : "CN",
+	"Publisher_name" : "Vikas",
+	"Author_name" : "Vivek Kulkarni",
+	"Address" : "Delhi",
+	"Author_Phone" : "9647836465",
+	"Publisher_city" : "Nashik",
+	"Price" : "600",
+	"Copies" : "60"
+}
+{
+	"_id" : ObjectId("5bc018eac3480fd761b13a4a"),
+	"Book_ISBN" : "4",
+	"Title" : "ISEE",
+	"Publisher_name" : "Nilesh",
+	"Author_name" : "Amruta",
+	"Address" : "Bombay",
+	"Author_Phone" : "9647836875",
+	"Publisher_city" : "Nagpur",
+	"Price" : "550",
+	"Copies" : "50"
+}
+{
+	"Address" : "Pune",
+	"Author_Phone" : "9897836875",
+	"Author_name" : "Aayansh",
+	"Book_ISBN" : "5",
+	"Copies" : "100",
+	"Price" : "450",
+	"Publisher_city" : "Delhi",
+	"Publisher_name" : "Vishakha",
+	"Title" : "SEPM",
+	"_id" : ObjectId("5bc0196dc3480fd761b13a4b"),
+	"publisher_city" : "Pune"
+}
+
+5.Display name of publisher as per no of Books published by them in ascending order.
+db.Book.find({},{"Publisher_name":1,_id:0}).sort({"Copies":1})
+{ "Publisher_name" : "Tata Magrohill" }
+{ "Publisher_name" : "Vishakha" }
+{ "Publisher_name" : "Vikas" }
+
+6.Get publisher names who published atleast one book written by author name like "A%".
+> db.Book.find({$and:[{"Author_name":{$gte:"A"}},{"Author_name":{$lt:"B"}}]},{"Publisher_name":1,_id:0})
+{ "Publisher_name" : "Vishakha" }
+ 
+7.Delete the Book from Book table written by Author "Amruta".
+> db.Book.remove({"Author_name":"Amruta"})
+> db.Book.find().pretty()
+{
+	"_id" : ObjectId("5bc016e8c3480fd761b13a48"),
+	"Book_ISBN" : "2",
+	"Title" : "TOC",
+	"Publisher_name" : "Tata Magrohill",
+	"Author_name" : "Karan",
+	"Address" : "Pune",
+	"Author_Phone" : "9746747492",
+	"Publisher_city" : "Mumbai",
+	"Price" : "400",
+	"Copies" : "10"
+}
+{
+	"_id" : ObjectId("5bc01856c3480fd761b13a49"),
+	"Book_ISBN" : "3",
+	"Title" : "CN",
+	"Publisher_name" : "Vikas",
+	"Author_name" : "Vivek Kulkarni",
+	"Address" : "Delhi",
+	"Author_Phone" : "9647836465",
+	"Publisher_city" : "Nashik",
+	"Price" : "600",
+	"Copies" : "60"
+}
+{
+	"Address" : "Pune",
+	"Author_Phone" : "9897836875",
+	"Author_name" : "Aayansh",
+	"Book_ISBN" : "5",
+	"Copies" : "100",
+	"Price" : "450",
+	"Publisher_city" : "Delhi",
+	"Publisher_name" : "Vishakha",
+	"Title" : "SEPM",
+	"_id" : ObjectId("5bc0196dc3480fd761b13a4b"),
+	"publisher_city" : "Pune"
+}
+
+

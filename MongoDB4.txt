@@ -1,0 +1,306 @@
+
+> db.createCollection("Movies")
+{ "ok" : 1 }
+> db.Movies.insert({"movie_id":123,"user_id":12,"Title":"Toy Story(1995)","Status":"A","Ratings":5})
+> db.Movies.find().pretty()
+{
+	"_id" : ObjectId("5bc4558f0e4119aa5bd36a3a"),
+	"movie_id" : 123,
+	"user_id" : 12,
+	"Title" : "Toy Story(1995)",
+	"Status" : "A",
+	"Ratings" : 5
+}
+> db.Movies.insert({"movie_id":456,"user_id":13,"Title":"Ice Age(2005)","Status":"A","Ratings":4})
+> db.Movies.insert({"movie_id":153,"user_id":15,"Title":"Vivah(2004)","Status":"A","Ratings":3})
+> db.Movies.insert({"movie_id":152,"user_id":16,"Title":"Dhoom(2003)","Status":"N","Ratings":6})
+> db.Movies.insert({"movie_id":122,"user_id":11,"Title":"Wake up sid(2008)","Status":"N","Ratings":5})
+> db.Movies.find().pretty()
+{
+	"_id" : ObjectId("5bc4558f0e4119aa5bd36a3a"),
+	"movie_id" : 123,
+	"user_id" : 12,
+	"Title" : "Toy Story(1995)",
+	"Status" : "A",
+	"Ratings" : 5
+}
+{
+	"_id" : ObjectId("5bc4561c0e4119aa5bd36a3b"),
+	"movie_id" : 456,
+	"user_id" : 13,
+	"Title" : "Ice Age(2005)",
+	"Status" : "A",
+	"Ratings" : 4
+}
+{
+	"_id" : ObjectId("5bc456520e4119aa5bd36a3c"),
+	"movie_id" : 153,
+	"user_id" : 15,
+	"Title" : "Vivah(2004)",
+	"Status" : "A",
+	"Ratings" : 3
+}
+{
+	"_id" : ObjectId("5bc456810e4119aa5bd36a3d"),
+	"movie_id" : 152,
+	"user_id" : 16,
+	"Title" : "Dhoom(2003)",
+	"Status" : "N",
+	"Ratings" : 6
+}
+{
+	"_id" : ObjectId("5bc456b00e4119aa5bd36a3e"),
+	"movie_id" : 122,
+	"user_id" : 11,
+	"Title" : "Wake up sid(2008)",
+	"Status" : "N",
+	"Ratings" : 5
+}
+1.
+> db.Movies.ensureIndex({"movie_id":123})
+2.Show various indexes.
+> db.Movies.getIndexes()
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "_id_"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 123
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_123"
+	}
+]
+> 
+3.Sort movie_id in descending order.
+>  db.Movies.find().sort({movie_id:-1}).pretty() 
+{
+	"_id" : ObjectId("5bc4561c0e4119aa5bd36a3b"),
+	"movie_id" : 456,
+	"user_id" : 13,
+	"Title" : "Ice Age(2005)",
+	"Status" : "A",
+	"Ratings" : 4
+}
+{
+	"_id" : ObjectId("5bc456520e4119aa5bd36a3c"),
+	"movie_id" : 153,
+	"user_id" : 15,
+	"Title" : "Vivah(2004)",
+	"Status" : "A",
+	"Ratings" : 3
+}
+{
+	"_id" : ObjectId("5bc456810e4119aa5bd36a3d"),
+	"movie_id" : 152,
+	"user_id" : 16,
+	"Title" : "Dhoom(2003)",
+	"Status" : "N",
+	"Ratings" : 6
+}
+{
+	"_id" : ObjectId("5bc4558f0e4119aa5bd36a3a"),
+	"movie_id" : 123,
+	"user_id" : 12,
+	"Title" : "Toy Story(1995)",
+	"Status" : "A",
+	"Ratings" : 5
+}
+{
+	"_id" : ObjectId("5bc456b00e4119aa5bd36a3e"),
+	"movie_id" : 122,
+	"user_id" : 11,
+	"Title" : "Wake up sid(2008)",
+	"Status" : "N",
+	"Ratings" : 5
+}
+4.
+> db.Movies.find({Title:"Toy Story(1995)"},{rating:1}).sort({movie_id:-1}).pretty()
+{ "_id" : ObjectId("5bc4558f0e4119aa5bd36a3a") }
+5.
+> db.Movies.find().sort({movie_id:-1}).pretty().limit(3)
+{
+	"_id" : ObjectId("5bc4561c0e4119aa5bd36a3b"),
+	"movie_id" : 456,
+	"user_id" : 13,
+	"Title" : "Ice Age(2005)",
+	"Status" : "A",
+	"Ratings" : 4
+}
+{
+	"_id" : ObjectId("5bc456520e4119aa5bd36a3c"),
+	"movie_id" : 153,
+	"user_id" : 15,
+	"Title" : "Vivah(2004)",
+	"Status" : "A",
+	"Ratings" : 3
+}
+{
+	"_id" : ObjectId("5bc456810e4119aa5bd36a3d"),
+	"movie_id" : 152,
+	"user_id" : 16,
+	"Title" : "Dhoom(2003)",
+	"Status" : "N",
+	"Ratings" : 6
+}
+6. 
+> db.Movies.find({"Title":"Ice Age(2005)"},{rating:-1}).pretty() 
+{ "_id" : ObjectId("5bc4561c0e4119aa5bd36a3b") }
+
+7.
+>  db.Movies.reIndex()
+{
+	"nIndexesWas" : 3,
+	"msg" : "indexes dropped for collection",
+	"nIndexes" : 3,
+	"indexes" : [
+		{
+			"key" : {
+				"_id" : 1
+			},
+			"ns" : "Library_s.Movies",
+			"name" : "_id_"
+		},
+		{
+			"key" : {
+				"movie_id" : 1
+			},
+			"ns" : "Library_s.Movies",
+			"name" : "movie_id_1"
+		},
+		{
+			"key" : {
+				"movie_id" : 123
+			},
+			"ns" : "Library_s.Movies",
+			"name" : "movie_id_123"
+		}
+	],
+	"ok" : 1
+}
+
+8.
+
+> db.Movies.ensureIndex({"movie_id":1,"Ratings":-1})
+> db.Movies.getIndexes()
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "_id_"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 123
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_123"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1,
+			"rating" : -1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1_rating_-1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1,
+			"Ratings" : -1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1_Ratings_-1"
+	}
+]
+
+9.
+
+> db.Movies.ensureIndex({"movie_id":1,"user_id":1,"Ratings":1})
+> db.Movies.getIndexes()
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "_id_"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 123
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_123"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1,
+			"rating" : -1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1_rating_-1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1,
+			"Ratings" : -1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1_Ratings_-1"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"movie_id" : 1,
+			"user_id" : 1,
+			"Ratings" : 1
+		},
+		"ns" : "Library_s.Movies",
+		"name" : "movie_id_1_user_id_1_Ratings_1"
+	}
+]
+> 
+
+

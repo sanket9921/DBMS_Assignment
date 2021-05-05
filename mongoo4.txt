@@ -1,0 +1,127 @@
+﻿> db.order.insert({"cust_id":12,"ord_date":new Date("oct 04,2012"),"status":"A","price":25,"gender":"F","rating":1})
+> db.order.insert({"cust_id":11,"ord_date":new Date("nov 14,2018"),"status":"A","price":30,"gender":"M","rating":2})
+> db.order.insert({"cust_id":13,"ord_date":new Date("march 05,2019"),"status":"A","price":35,"gender":"F","rating":3})
+> db.order.insert({"cust_id":13,"ord_date":new Date("july 28,2019"),"status":"A","price":79,"gender":"M","rating":4});
+> db.order.insert({"cust_id":14,"ord_date":new Date("may 5,2018"),"status":"B","price":55,"gender":"M","rating":9})
+> db.order.insert({"cust_id":19,"ord_date":new Date("aug 07,2018"),"status":"M","price":89,"gender":"F","rating":6})
+> db.order.find().pretty()
+{
+	"_id" : ObjectId("5d9ab555efd9fe30655cb7a0"),
+	"cust_id" : 12,
+	"ord_date" : ISODate("2012-10-03T18:30:00Z"),
+	"status" : "A",
+	"price" : 25,
+	"gender" : "F",
+	"rating" : 1
+}
+{
+	"_id" : ObjectId("5d9ab5adefd9fe30655cb7a1"),
+	"cust_id" : 11,
+	"ord_date" : ISODate("2018-11-13T18:30:00Z"),
+	"status" : "A",
+	"price" : 30,
+	"gender" : "M",
+	"rating" : 2
+}
+{
+	"_id" : ObjectId("5d9ab624efd9fe30655cb7a2"),
+	"cust_id" : 13,
+	"ord_date" : ISODate("2019-03-04T18:30:00Z"),
+	"status" : "A",
+	"price" : 35,
+	"gender" : "F",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("5d9ab655efd9fe30655cb7a3"),
+	"cust_id" : 13,
+	"ord_date" : ISODate("2019-07-27T18:30:00Z"),
+	"status" : "A",
+	"price" : 79,
+	"gender" : "M",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("5d9ab686efd9fe30655cb7a4"),
+	"cust_id" : 14,
+	"ord_date" : ISODate("2018-05-04T18:30:00Z"),
+	"status" : "B",
+	"price" : 55,
+	"gender" : "M",
+	"rating" : 9
+}
+{
+	"_id" : ObjectId("5d9ab6beefd9fe30655cb7a5"),
+	"cust_id" : 19,
+	"ord_date" : ISODate("2018-08-06T18:30:00Z"),
+	"status" : "M",
+	"price" : 89,
+	"gender" : "F",
+	"rating" : 6
+}
+A.Write a map reduce operation to return the total price per customer ID.
+>var map=function(){emit(this.cust_id,this.price)}
+> var reduce =function(key,values){return Array.sum(values)}
+>   db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 71,
+	"counts" : {
+		"input" : 6,
+		"emit" : 6,
+		"reduce" : 1,
+		"output" : 5
+	},
+	"ok" : 1,
+}
+B.Count the number of female(f) and male(M) respondents in the orders collection.
+> var map=function(){ var gen; if(this.gender=="M") gen="Male"; else gen="female"; emit(gen,this.gender)}
+> var reduce=function(key,values) { var sum=0;values.forEach(function(doc) {sum=sum+1;});return {total:sum};};
+> var count=db.order.mapReduce(map,reduce,{out:'result'});
+> db.result.find().pretty();
+{ "_id" : "Male", "value" : { "total" : 3 } }
+{ "_id" : "female", "value" : { "total" : 3 } }
+C.Count the number of each type of rating(1,2,3,4,5) for each orders.
+> var map=function() { var cat; if(this.rating==1) cat=1;if(this.rating==2) cat=2; if(this.rating==3) cat=3;if(this.rating==4) cat=4; if(this.rating==5) cat=5;if(this.rating==6) cat=6;if(this.rating==9) cat=9;emit(this.rating,cat)};
+> var reduce=function(key,values) { var sum=0;values.forEach(function(doc) {sum=sum+1;});return {total:sum};};
+> db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 4,
+	"counts" : {
+		"input" : 6,
+		"emit" : 6,
+		"reduce" : 0,
+		"output" : 6
+	},
+	"ok" : 1,
+}
+> db.result.find()
+{ "_id" : 1, "value" : 1 }
+{ "_id" : 2, "value" : 2 }
+{ "_id" : 3, "value" : 3 }
+{ "_id" : 4, "value" : 4 }
+{ "_id" : 6, "value" : 6 }
+{ "_id" : 9, "value" : 9 }
+D.Calculate avg rating of each order.
+> var map=function(){ emit(this.cust_id,this.rating)}
+> var reduce=function(key,value){return Array.avg(value)}
+>  db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 6,
+	"counts" : {
+		"input" : 6,
+		"emit" : 6,
+		"reduce" : 1,
+		"output" : 5
+	},
+	"ok" : 1,
+}
+> db.result.find()
+{ "_id" : 11, "value" : 2 }
+{ "_id" : 12, "value" : 1 }
+{ "_id" : 13, "value" : 3.5 }
+{ "_id" : 14, "value" : 9 }
+{ "_id" : 19, "value" : 6 }
+> 

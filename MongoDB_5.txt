@@ -1,0 +1,132 @@
+> db.order.insert({"cust_id":12,"status":"A","price":25,"gender":"F","rating":1})
+> db.order.insert({"cust_id":11,"status":"A","price":30,"gender":"M","rating":2})
+> db.order.insert({"cust_id":13,"status":"A","price":35,"gender":"F","rating":3})
+> db.order.insert({"cust_id":14,"status":"A","price":45,"gender":"M","rating":4})
+> db.order.insert({"cust_id":15,"status":"A","price":50,"gender":"F","rating":5})
+> db.order.find().pretty()
+{
+	"_id" : ObjectId("5bc5574db3a5b174ef80f12e"),
+	"cust_id" : 12,
+	"status" : "A",
+	"price" : 25,
+	"gender" : "F",
+	"rating" : 1
+}
+{
+	"_id" : ObjectId("5bc55787b3a5b174ef80f12f"),
+	"cust_id" : 11,
+	"status" : "A",
+	"price" : 30,
+	"gender" : "M",
+	"rating" : 2
+}
+{
+	"_id" : ObjectId("5bc557a5b3a5b174ef80f130"),
+	"cust_id" : 13,
+	"status" : "A",
+	"price" : 35,
+	"gender" : "F",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("5bc557beb3a5b174ef80f131"),
+	"cust_id" : 14,
+	"status" : "A",
+	"price" : 45,
+	"gender" : "M",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("5bc557d5b3a5b174ef80f132"),
+	"cust_id" : 15,
+	"status" : "A",
+	"price" : 50,
+	"gender" : "F",
+	"rating" : 5
+}
+
+A.Write a map reduce operation to return the total price per customer ID.
+> var map=function()
+Tue Oct 16 08:46:19.202 SyntaxError: Unexpected end of input
+> var map=function(){
+... emit(this.cust_id,this.price)}
+> var reduce =function(key,values){
+... return Array.sum(values)}
+> db.order.mapReduce(map,reduce,{out."result"})
+Tue Oct 16 08:48:41.416 SyntaxError: Unexpected token .
+> db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 82,
+	"counts" : {
+		"input" : 5,
+		"emit" : 5,
+		"reduce" : 0,
+		"output" : 5
+	},
+	"ok" : 1,
+} 
+
+B.Count the number of female(f) and male(M) respondents in the orders collection.
+> var map=function(){ var gen; if(this.gender=="M") gen="Male"; else gen="female"; emit(gen,this.gender)}
+> var reduce=function(key,values){
+... var sum=0;
+... values.forEach(function(doc){
+... sum=sum+1;
+... });
+... return{total:sum};
+... };
+> var reduce=function(key,values) { var sum=0;values.forEach(function(doc) {sum=sum+1;});return {total:sum};};
+> var count=db.order.mapReduce(map,reduce,{out:'result'});
+> db.result.find()
+{ "_id" : "Male", "value" : { "total" : 2 } }
+{ "_id" : "female", "value" : { "total" : 3 } }
+> 
+
+C.Count the number of each type of rating(1,2,3,4,5) for each orders.
+> var map=function() { var cat; if(this.rating==1) cat=1;if(this.rating==2) cat-=2; if(this.rating==3) cat=3;if(this.rating==4) cat=4; if(this.rating==5) cat=5;emit(this.rating,cat);};
+> var reduce= function(key,values){var sum=0; values.forEach(function(doc){sum=sum+1;});return{total:sum};};
+> db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 19,
+	"counts" : {
+		"input" : 5,
+		"emit" : 5,
+		"reduce" : 0,
+		"output" : 5
+	},
+	"ok" : 1,
+}
+> db.result.find()
+{ "_id" : 1, "value" : 1 }
+{ "_id" : 2, "value" : NaN }
+{ "_id" : 3, "value" : 3 }
+{ "_id" : 4, "value" : 4 }
+{ "_id" : 5, "value" : 5 }
+> 
+
+D.Calculate avg rating of each order.
+> var map=function(){ emit(this.cust_id,this.rating)}
+> var reduce=function(key,value){return Array.avg(value)}
+> db.order.mapReduce(map,reduce,{out:"result"})
+{
+	"result" : "result",
+	"timeMillis" : 16,
+	"counts" : {
+		"input" : 5,
+		"emit" : 5,
+		"reduce" : 0,
+		"output" : 5
+	},
+	"ok" : 1,
+}
+> db.result.find().pretty()
+{ "_id" : 11, "value" : 2 }
+{ "_id" : 12, "value" : 1 }
+{ "_id" : 13, "value" : 3 }
+{ "_id" : 14, "value" : 4 }
+{ "_id" : 15, "value" : 5 }
+
+
+
